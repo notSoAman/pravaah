@@ -1,16 +1,38 @@
+# Python
 .venv/
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
 
+# Environment
 .env
+.env.*
+!.env.example
 
+# Django
 db.sqlite3
-
-media/
 staticfiles/
+media/
 
+# Node
+node_modules/
+npm-debug.log*
+
+# Build artifacts
+static/css/styles.css
+
+# Editor
 .vscode/
 .idea/
+*.swp
+*.swo
 
+# OS
 .DS_Store
-node_modules/
+Thumbs.db
+
+# Railway (not in use, using Render)
+railway.json
+railpack.json
+nixpacks.toml
