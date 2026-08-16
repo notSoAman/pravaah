@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div 
+    x-data="{ menuOpen: false, activeSlide: 0, slidesCount: 4 }" 
+    x-init="setInterval(() => { activeSlide = (activeSlide + 1) % slidesCount }, 6000)" 
+    class="relative h-screen w-screen overflow-hidden bg-black text-white"
+>
+    <!-- Navbar Component -->
+    {% include 'components/navbar.html' %}
+
+    <!-- Fullscreen Menu Overlay -->
+    {% include 'components/menu_overlay.html' %}
+
+    <!-- Slides Container -->
+    <div class="relative w-full h-full">
+        
+        <!-- Slide 0: Camera -->
+        <div 
+            class="absolute inset-0 w-full h-full transition-opacity duration-[1500ms] ease-in-out"
+            :class="activeSlide === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'"
+        >
+            <div 
+                class="absolute inset-0 bg-cover bg-center transition-transform duration-[6000ms] ease-out transform"
+                :class="activeSlide === 0 ? 'scale-100' : 'scale-110'"
+                style="background-image: url('{% static 'images/hero_camera.png' %}');"
+            ></div>
+            <div class="absolute inset-0 bg-black/40"></div>
+            
+            <!-- Text Content -->
+            <div 
+                x-show="activeSlide === 0"
+                x-transition:enter="transition ease-out duration-1000 delay-500"
+                x-transition:enter-start="opacity-0 translate-y-8"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-500"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-8"
+                class="absolute bottom-16 left-6 md:bottom-24 md:left-12 max-w-4xl pr-6"
+            >
+                <span class="text-xs uppercase tracking-[0.3em] text-[#A0A0A0] font-medium mb-3 block">01 / The Collective</span>
+                <h1 class="text-4xl md:text-7xl font-serif font-light leading-tight tracking-wide text-white">
+                    Pravaah welcomes you,<br>
+                    <span class="italic font-normal">grab your camera.</span>
+                </h1>
+            </div>
+        </div>
+
+        <!-- Slide 1: Mic -->
+        <div 
+            class="absolute inset-0 w-full h-full transition-opacity duration-[1500ms] ease-in-out"
+            :class="activeSlide === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'"
+        >
+            <div 
+                class="absolute inset-0 bg-cover bg-center transition-transform duration-[6000ms] ease-out transform"
+                :class="activeSlide === 1 ? 'scale-100' : 'scale-110'"
+                style="background-image: url('{% static 'images/hero_mic.png' %}');"
+            ></div>
+            <div class="absolute inset-0 bg-black/40"></div>
+            
+            <!-- Text Content -->
+            <div 
+                x-show="activeSlide === 1"
+                x-transition:enter="transition ease-out duration-1000 delay-500"
+                x-transition:enter-start="opacity-0 translate-y-8"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-500"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-8"
+                class="absolute bottom-16 left-6 md:bottom-24 md:left-12 max-w-4xl pr-6"
+            >
+                <span class="text-xs uppercase tracking-[0.3em] text-[#A0A0A0] font-medium mb-3 block">02 / The Voice</span>
+                <h1 class="text-4xl md:text-7xl font-serif font-light leading-tight tracking-wide text-white">
+                    प्रवाह welcomes you,<br>
+                    <span class="italic font-normal">grab your mic.</span>
+                </h1>
+            </div>
+        </div>
+
+        <!-- Slide 2: Notebook -->
+        <div 
+            class="absolute inset-0 w-full h-full transition-opacity duration-[1500ms] ease-in-out"
+            :class="activeSlide === 2 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'"
+        >
+            <div 
+                class="absolute inset-0 bg-cover bg-center transition-transform duration-[6000ms] ease-out transform"
+                :class="activeSlide === 2 ? 'scale-100' : 'scale-110'"
+                style="background-image: url('{% static 'images/hero_notebook.png' %}');"
+            ></div>
+            <div class="absolute inset-0 bg-black/40"></div>
+            
+            <!-- Text Content -->
+            <div 
+                x-show="activeSlide === 2"
+                x-transition:enter="transition ease-out duration-1000 delay-500"
+                x-transition:enter-start="opacity-0 translate-y-8"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-500"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-8"
+                class="absolute bottom-16 left-6 md:bottom-24 md:left-12 max-w-4xl pr-6"
+            >
+                <span class="text-xs uppercase tracking-[0.3em] text-[#A0A0A0] font-medium mb-3 block">03 / The Word</span>
+                <h1 class="text-4xl md:text-7xl font-serif font-light leading-tight tracking-wide text-white">
+                    ਪ੍ਰਵਾਹ welcomes you,<br>
+                    <span class="italic font-normal">grab your notebook.</span>
+                </h1>
+            </div>
+        </div>
+
+        <!-- Slide 3: Headphones -->
+        <div 
+            class="absolute inset-0 w-full h-full transition-opacity duration-[1500ms] ease-in-out"
+            :class="activeSlide === 3 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'"
+        >
+            <div 
+                class="absolute inset-0 bg-cover bg-center transition-transform duration-[6000ms] ease-out transform"
+                :class="activeSlide === 3 ? 'scale-100' : 'scale-110'"
+                style="background-image: url('{% static 'images/hero_headphones.png' %}');"
+            ></div>
+            <div class="absolute inset-0 bg-black/40"></div>
+            
+            <!-- Text Content -->
+            <div 
+                x-show="activeSlide === 3"
+                x-transition:enter="transition ease-out duration-1000 delay-500"
+                x-transition:enter-start="opacity-0 translate-y-8"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-500"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-8"
+                class="absolute bottom-16 left-6 md:bottom-24 md:left-12 max-w-4xl pr-6"
+            >
+                <span class="text-xs uppercase tracking-[0.3em] text-[#A0A0A0] font-medium mb-3 block">04 / The Sound</span>
+                <h1 class="text-4xl md:text-7xl font-serif font-light leading-tight tracking-wide text-white">
+                    Pravaah welcomes you,<br>
+                    <span class="italic font-normal">grab your headphones.</span>
+                </h1>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Slide Indicators (Bottom Right) -->
+    <div class="absolute bottom-16 right-6 md:bottom-24 md:right-12 z-20 flex flex-col gap-3">
+        <template x-for="(slide, index) in Array.from({length: slidesCount})">
+            <button 
+                @click="activeSlide = index"
+                class="group flex items-center gap-4 text-left focus:outline-none"
+            >
+                <span 
+                    class="text-[10px] font-mono tracking-widest transition-opacity duration-300"
+                    :class="activeSlide === index ? 'text-white opacity-100' : 'text-white opacity-30 group-hover:opacity-75'"
+                    x-text="'0' + (index + 1)"
+                ></span>
+                <span 
+                    class="h-[1px] bg-white transition-all duration-500 ease-out"
+                    :class="activeSlide === index ? 'w-8 opacity-100' : 'w-4 opacity-30 group-hover:opacity-75 group-hover:w-6'"
+                ></span>
+            </button>
+        </template>
+    </div>
+</div>
+{% endblock %}

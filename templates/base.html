@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PRAVAAH | Mass-Communication & Media Club{% endblock %}</title>
+    <meta name="description" content="PRAVAAH is the official mass-communication and media club. Explore our films, events, journal, and team.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Noto+Serif+Devanagari:wght@300;400;500;600&family=Noto+Serif+Gurmukhi:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Compiled CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    <!-- Alpine.js for minimal UI interaction (e.g. fullscreen menu overlay) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-black text-white font-sans antialiased selection:bg-white selection:text-black min-h-screen overflow-hidden">
+    
+    {% block content %}{% endblock %}
+
+</body>
+</html>

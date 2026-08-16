@@ -1,0 +1,11 @@
+{
+  "name": "pravaah",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tailwindcss -i ./static/src/input.css -o ./static/css/styles.css",
+    "watch": "tailwindcss -i ./static/src/input.css -o ./static/css/styles.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
