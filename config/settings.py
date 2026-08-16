@@ -31,15 +31,10 @@ DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() in ("true", "1", "t")
 ALLOWED_HOSTS_ENV = os.getenv("ALLOWED_HOSTS", "")
 if ALLOWED_HOSTS_ENV:
     ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS_ENV.split(",") if h.strip()]
+    if ".onrender.com" not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(".onrender.com")
 else:
-    ALLOWED_HOSTS = [
-        "0.0.0.0",
-        "127.0.0.1",
-        "localhost",
-        "*.up.railway.app",
-        "*.onrender.com",
-        "*",
-    ]
+    ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS_ENV = os.getenv("CSRF_TRUSTED_ORIGINS", "")
 if CSRF_TRUSTED_ORIGINS_ENV:
@@ -48,8 +43,8 @@ if CSRF_TRUSTED_ORIGINS_ENV:
     ]
 else:
     CSRF_TRUSTED_ORIGINS = [
-        "https://*.up.railway.app",
         "https://*.onrender.com",
+        "https://*.up.railway.app",
         "http://localhost:8000",
         "http://127.0.0.1:8000",
     ]
@@ -149,6 +144,14 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
 
 
 # Email

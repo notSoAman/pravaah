@@ -2,17 +2,24 @@
 # Exit immediately if a command exits with a non-zero status
 set -o errexit
 
-echo "Installing Python requirements..."
-pip install -r requirements.txt
+echo "==> Installing Python dependencies..."
+if [ -d ".venv" ] && [ -z "$RENDER" ]; then
+    .venv/bin/pip install -r requirements.txt
+else
+    pip install -r requirements.txt
+fi
 
-echo "Building Tailwind CSS assets..."
+echo "==> Installing Node dependencies & compiling Tailwind CSS..."
 npm install
 npm run build
 
-echo "Collecting static files..."
-python manage.py collectstatic --noinput
+echo "==> Collecting static files..."
+if [ -d ".venv" ] && [ -z "$RENDER" ]; then
+    .venv/bin/python manage.py collectstatic --noinput
+    .venv/bin/python manage.py migrate
+else
+    python manage.py collectstatic --noinput
+    python manage.py migrate
+fi
 
-echo "Running database migrations..."
-python manage.py migrate
-
-echo "Build completed successfully!"
+echo "==> Build complete!"
