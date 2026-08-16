@@ -1,3 +1,4 @@
+import re
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
@@ -6,7 +7,7 @@ from django.utils.text import slugify
 class Member(models.Model):
     name = models.CharField(max_length=150)
     slug = models.SlugField(max_length=180, unique=True, blank=True)
-    photo = models.ImageField(upload_to="members/")
+    photo = models.ImageField(upload_to="members/", blank=True, null=True)
     position = models.CharField(max_length=150)
     bio = models.TextField(blank=True)
 
@@ -75,6 +76,18 @@ class Movie(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    @property
+    def youtube_embed_url(self):
+        if not self.youtube_url:
+            return ""
+        match = re.search(
+            r'(?:v=|\/embed\/|\/1.1\/|\/v\/|https:\/\/youtu\.be\/|\/shorts\/)([a-zA-Z0-9_-]{11})',
+            self.youtube_url,
+        )
+        if match:
+            return f"https://www.youtube-nocookie.com/embed/{match.group(1)}?rel=0&modestbranding=1"
+        return self.youtube_url
 
     def __str__(self):
         return self.title

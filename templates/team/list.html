@@ -1,0 +1,305 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Team | PRAVAAH{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-black text-white" x-data="{ menuOpen: false }">
+    <!-- Navbar Component -->
+    {% include 'components/navbar.html' %}
+
+    <!-- Fullscreen Menu Overlay -->
+    {% include 'components/menu_overlay.html' %}
+
+    <!-- Page Header -->
+    <header class="relative pt-28 md:pt-40 lg:pt-48 pb-16 md:pb-24 lg:pb-32 px-6 md:px-12 lg:px-20 border-b border-[#111]">
+        <div class="relative z-10 w-full max-w-7xl mx-auto">
+            <span class="text-[10px] uppercase tracking-[0.3em] text-[#FF5500] font-medium block mb-4">
+                ROSTER &amp; CREW
+            </span>
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-serif font-light leading-[0.95] tracking-tight text-white">
+                TEAM
+            </h1>
+            <p class="mt-6 md:mt-8 text-sm md:text-base text-[#666] font-light max-w-2xl leading-relaxed tracking-wide">
+                The people behind PRAVAAH's stories, productions, events, and journalism.
+            </p>
+        </div>
+    </header>
+
+    <main class="px-6 md:px-12 lg:px-20 py-16 md:py-28 lg:py-36 max-w-7xl mx-auto space-y-24 md:space-y-36 lg:space-y-48">
+        {% if members %}
+
+        <!-- 1. PRESIDENT SECTION -->
+        {% if presidents %}
+        <section class="space-y-8 md:space-y-12">
+            <div class="flex items-center gap-4">
+                <span class="text-[10px] uppercase tracking-[0.3em] text-[#444] font-medium">01 // LEADERSHIP</span>
+                <div class="h-[1px] flex-1 bg-[#111]"></div>
+            </div>
+
+            {% for member in presidents %}
+            <div class="group grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-start">
+                <!-- Portrait Photo / Editorial Placeholder -->
+                <div class="md:col-span-6 lg:col-span-5 aspect-[3/4] overflow-hidden bg-[#0a0a0a] relative border border-[#111]">
+                    {% if member.photo %}
+                    <img 
+                        src="{{ member.photo.url }}" 
+                        alt="{{ member.name }}"
+                        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        loading="lazy"
+                    >
+                    {% else %}
+                    <!-- Elegant Typography Placeholder -->
+                    <div class="w-full h-full flex flex-col items-center justify-center p-8 bg-gradient-to-b from-[#0e0e0e] to-[#050505]">
+                        <span class="text-7xl md:text-9xl font-serif font-extralight text-[#222] group-hover:text-[#333] transition-colors duration-500 select-none">
+                            {{ member.name|slice:":1"|upper }}
+                        </span>
+                        <span class="mt-4 text-[9px] uppercase tracking-[0.3em] text-[#444] font-mono">
+                            PRAVAAH ARCHIVE
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Profile Info -->
+                <div class="md:col-span-6 lg:col-span-7 flex flex-col justify-center space-y-6 pt-2 md:pt-4">
+                    <div>
+                        <span class="text-[11px] uppercase tracking-[0.25em] text-[#666] font-medium block mb-2">
+                            {{ member.position }}
+                        </span>
+                        <h2 class="text-4xl md:text-6xl lg:text-7xl font-serif font-light leading-tight tracking-tight text-white">
+                            {{ member.name }}
+                        </h2>
+                    </div>
+
+                    {% if member.bio %}
+                    <p class="text-sm md:text-base text-[#888] font-light leading-relaxed max-w-xl">
+                        {{ member.bio }}
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        <!-- 2. VICE PRESIDENT SECTION -->
+        {% if vice_presidents %}
+        <section class="space-y-8 md:space-y-12">
+            <div class="flex items-center gap-4">
+                <span class="text-[10px] uppercase tracking-[0.3em] text-[#444] font-medium">02 // EXECUTIVE DIRECTION</span>
+                <div class="h-[1px] flex-1 bg-[#111]"></div>
+            </div>
+
+            <div class="space-y-16 md:space-y-24">
+                {% for member in vice_presidents %}
+                <div class="group grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-start">
+                    <!-- Portrait Photo / Editorial Placeholder -->
+                    <div class="md:col-span-6 lg:col-span-5 aspect-[3/4] overflow-hidden bg-[#0a0a0a] relative border border-[#111]">
+                        {% if member.photo %}
+                        <img 
+                            src="{{ member.photo.url }}" 
+                            alt="{{ member.name }}"
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        {% else %}
+                        <!-- Elegant Typography Placeholder -->
+                        <div class="w-full h-full flex flex-col items-center justify-center p-8 bg-gradient-to-b from-[#0e0e0e] to-[#050505]">
+                            <span class="text-7xl md:text-9xl font-serif font-extralight text-[#222] group-hover:text-[#333] transition-colors duration-500 select-none">
+                                {{ member.name|slice:":1"|upper }}
+                            </span>
+                            <span class="mt-4 text-[9px] uppercase tracking-[0.3em] text-[#444] font-mono">
+                                PRAVAAH ARCHIVE
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Profile Info -->
+                    <div class="md:col-span-6 lg:col-span-7 flex flex-col justify-center space-y-6 pt-2 md:pt-4">
+                        <div>
+                            <span class="text-[11px] uppercase tracking-[0.25em] text-[#666] font-medium block mb-2">
+                                {{ member.position }}
+                            </span>
+                            <h2 class="text-4xl md:text-6xl lg:text-7xl font-serif font-light leading-tight tracking-tight text-white">
+                                {{ member.name }}
+                            </h2>
+                        </div>
+
+                        {% if member.bio %}
+                        <p class="text-sm md:text-base text-[#888] font-light leading-relaxed max-w-xl">
+                            {{ member.bio }}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- 3. LEADERSHIP TIER (Treasurer, Secretary, Joint Secretary) -->
+        {% if leadership %}
+        <section class="space-y-8 md:space-y-12">
+            <div class="flex items-center gap-4">
+                <span class="text-[10px] uppercase tracking-[0.3em] text-[#444] font-medium">03 // OFFICERS</span>
+                <div class="h-[1px] flex-1 bg-[#111]"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+                {% for member in leadership %}
+                <div class="group flex flex-col space-y-5">
+                    <div class="aspect-[3/4] overflow-hidden bg-[#0a0a0a] relative border border-[#111]">
+                        {% if member.photo %}
+                        <img 
+                            src="{{ member.photo.url }}" 
+                            alt="{{ member.name }}"
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        {% else %}
+                        <div class="w-full h-full flex flex-col items-center justify-center p-6 bg-gradient-to-b from-[#0e0e0e] to-[#050505]">
+                            <span class="text-5xl md:text-7xl font-serif font-extralight text-[#222] group-hover:text-[#333] transition-colors duration-500 select-none">
+                                {{ member.name|slice:":1"|upper }}
+                            </span>
+                            <span class="mt-3 text-[8px] uppercase tracking-[0.3em] text-[#444] font-mono">
+                                PRAVAAH
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="space-y-2">
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-[#666] font-medium block">
+                            {{ member.position }}
+                        </span>
+                        <h3 class="text-2xl font-serif font-light tracking-wide text-white">
+                            {{ member.name }}
+                        </h3>
+
+                        {% if member.bio %}
+                        <p class="text-xs text-[#888] font-light leading-relaxed">
+                            {{ member.bio }}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- 4. EXECUTIVE MEMBERS -->
+        {% if executive_members %}
+        <section class="space-y-8 md:space-y-12">
+            <div class="flex items-center gap-4">
+                <span class="text-[10px] uppercase tracking-[0.3em] text-[#444] font-medium">04 // EXECUTIVE BOARD</span>
+                <div class="h-[1px] flex-1 bg-[#111]"></div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-10">
+                {% for member in executive_members %}
+                <div class="group flex flex-col space-y-4">
+                    <div class="aspect-[3/4] overflow-hidden bg-[#0a0a0a] relative border border-[#111]">
+                        {% if member.photo %}
+                        <img 
+                            src="{{ member.photo.url }}" 
+                            alt="{{ member.name }}"
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        {% else %}
+                        <div class="w-full h-full flex flex-col items-center justify-center p-4 bg-gradient-to-b from-[#0e0e0e] to-[#050505]">
+                            <span class="text-4xl md:text-5xl font-serif font-extralight text-[#222] group-hover:text-[#333] transition-colors duration-500 select-none">
+                                {{ member.name|slice:":1"|upper }}
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="space-y-1">
+                        <span class="text-[9px] uppercase tracking-[0.2em] text-[#555] font-medium block">
+                            {{ member.position }}
+                        </span>
+                        <h4 class="text-lg md:text-xl font-serif font-light tracking-wide text-white">
+                            {{ member.name }}
+                        </h4>
+
+                        {% if member.bio %}
+                        <p class="text-xs text-[#777] font-light leading-relaxed line-clamp-3 pt-1">
+                            {{ member.bio }}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- 5. MEMBERS -->
+        {% if general_members %}
+        <section class="space-y-8 md:space-y-12">
+            <div class="flex items-center gap-4">
+                <span class="text-[10px] uppercase tracking-[0.3em] text-[#444] font-medium">05 // MEMBERS &amp; CREW</span>
+                <div class="h-[1px] flex-1 bg-[#111]"></div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8">
+                {% for member in general_members %}
+                <div class="group flex flex-col space-y-3">
+                    <div class="aspect-[3/4] overflow-hidden bg-[#0a0a0a] relative border border-[#111]">
+                        {% if member.photo %}
+                        <img 
+                            src="{{ member.photo.url }}" 
+                            alt="{{ member.name }}"
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center p-4 bg-[#0a0a0a]">
+                            <span class="text-3xl md:text-4xl font-serif font-extralight text-[#222] group-hover:text-[#333] transition-colors duration-500 select-none">
+                                {{ member.name|slice:":1"|upper }}
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="space-y-0.5">
+                        <span class="text-[9px] uppercase tracking-[0.18em] text-[#555] font-medium block">
+                            {{ member.position }}
+                        </span>
+                        <h4 class="text-base font-serif font-light tracking-wide text-white group-hover:text-[#ccc] transition-colors duration-300">
+                            {{ member.name }}
+                        </h4>
+
+                        {% if member.bio %}
+                        <p class="text-[11px] text-[#777] font-light leading-snug line-clamp-2 pt-1">
+                            {{ member.bio }}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% else %}
+        <!-- Empty State -->
+        <div class="max-w-2xl mx-auto text-center py-32 md:py-48 space-y-6">
+            <h2 class="text-3xl md:text-5xl font-serif font-light tracking-wide text-white">
+                No Team Members Listed
+            </h2>
+            <p class="text-[#666] font-light leading-relaxed">
+                Team members will appear here once added through the Django admin panel.
+            </p>
+        </div>
+        {% endif %}
+    </main>
+
+    <!-- Footer Component -->
+    {% include 'components/footer.html' %}
+</div>
+{% endblock %}

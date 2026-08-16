@@ -10,9 +10,161 @@
     color: #ffffff;
   }
   
-  /* Custom selection color for A24 monochrome aesthetic */
+  /* Custom selection color for studio aesthetic */
   ::selection {
-    background-color: #ffffff;
+    background-color: #FF5500;
     color: #000000;
+  }
+}
+
+@layer components {
+  /* Gallery grid: 1 col on mobile, 2 on tablet, 3 on desktop */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  @media (min-width: 640px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+  }
+
+  /* First image spans full width for editorial hero effect */
+  .gallery-item:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .gallery-item:first-child .overflow-hidden {
+    aspect-ratio: 16 / 7;
+  }
+
+  /* Event description text styles */
+  .event-description p {
+    color: #A0A0A0;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+
+  .event-description p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Editorial Journal Article Styling */
+  .journal-content {
+    color: #b0b0b0;
+    font-weight: 300;
+    font-size: 1.125rem;
+    line-height: 1.85;
+  }
+
+  .journal-content p {
+    margin-bottom: 1.75rem;
+  }
+
+  .journal-content h1,
+  .journal-content h2,
+  .journal-content h3,
+  .journal-content h4 {
+    font-family: 'Cormorant Garamond', serif;
+    color: #ffffff;
+    font-weight: 400;
+    line-height: 1.25;
+    margin-top: 3rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  .journal-content h1 { font-size: 2.5rem; }
+  .journal-content h2 { font-size: 2rem; }
+  .journal-content h3 { font-size: 1.65rem; }
+  .journal-content h4 { font-size: 1.35rem; }
+
+  .journal-content a {
+    color: #FF5500;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: opacity 0.3s;
+  }
+
+  .journal-content a:hover {
+    opacity: 0.75;
+  }
+
+  .journal-content blockquote {
+    border-left: 2px solid #FF5500;
+    padding-left: 1.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.35rem;
+    color: #ffffff;
+    line-height: 1.6;
+  }
+
+  .journal-content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .journal-content ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .journal-content li {
+    margin-bottom: 0.5rem;
+  }
+
+  .journal-content hr {
+    border: 0;
+    border-top: 1px solid #222222;
+    margin-top: 3.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .journal-content img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    border: 1px solid #111111;
+  }
+
+  .journal-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    border: 1px solid #222222;
+    font-size: 0.95rem;
+  }
+
+  .journal-content th,
+  .journal-content td {
+    padding: 0.75rem 1rem;
+    border: 1px solid #222222;
+    text-align: left;
+  }
+
+  .journal-content th {
+    background-color: #0e0e0e;
+    color: #ffffff;
+    font-weight: 500;
   }
 }

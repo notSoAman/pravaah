@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Events | PRAVAAH{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-black text-white" x-data="{ menuOpen: false }">
+    <!-- Navbar Component -->
+    {% include 'components/navbar.html' %}
+
+    <!-- Fullscreen Menu Overlay -->
+    {% include 'components/menu_overlay.html' %}
+
+    <!-- Page Header -->
+    <header class="relative pt-24 md:pt-32 pb-12 md:pb-16 px-6 md:px-12 lg:px-20">
+        <div class="relative z-10 w-full">
+            <span class="text-[10px] uppercase tracking-[0.3em] text-[#FF5500] font-medium block mb-4">
+                PROGRAMMING &amp; CALENDAR
+            </span>
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-serif font-light leading-[0.95] tracking-tight text-white">
+                EVENTS
+            </h1>
+            <p class="mt-6 md:mt-8 text-sm md:text-base text-[#666] font-light max-w-xl leading-relaxed tracking-wide">
+                Stories, screenings, productions, and moments from PRAVAAH.
+            </p>
+        </div>
+    </header>
+
+    <!-- Events List -->
+    <main class="px-6 md:px-12 lg:px-20 pb-20 md:pb-28">
+        {% if events %}
+        <!-- Ruled list: each event is a horizontal row with a small thumbnail -->
+        <div class="divide-y divide-[#111]">
+            {% for event in events %}
+            <a href="{% url 'event_detail' event.slug %}" class="group flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 py-8 md:py-10 focus:outline-none">
+                <!-- Thumbnail: fixed landscape ratio -->
+                <div class="relative w-full md:w-52 lg:w-64 flex-shrink-0 aspect-[16/9] overflow-hidden bg-[#0a0a0a]">
+                    <img
+                        src="{{ event.cover_image.url }}"
+                        alt="{{ event.title }}"
+                        class="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105"
+                        loading="lazy"
+                    >
+                </div>
+
+                <!-- Event Info -->
+                <div class="flex-1 min-w-0">
+                    <time class="text-[10px] uppercase tracking-[0.25em] text-[#555] font-medium block mb-2 transition-colors duration-300 group-hover:text-[#888]">
+                        {{ event.date|date:"F d, Y"|upper }}
+                    </time>
+                    <h2 class="text-lg md:text-xl lg:text-2xl font-serif font-light leading-snug tracking-wide text-white group-hover:opacity-70 transition-opacity duration-300">
+                        {{ event.title }}
+                    </h2>
+                </div>
+
+                <!-- Arrow indicator -->
+                <div class="hidden md:flex flex-shrink-0 items-center text-[#333] group-hover:text-white transition-colors duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="max-w-2xl mx-auto text-center py-32 md:py-48">
+            <h2 class="text-3xl md:text-5xl font-serif font-light tracking-wide text-white mb-6">
+                No Events Yet
+            </h2>
+            <p class="text-[#A0A0A0] font-light leading-relaxed">
+                Events will appear here once they are added through the admin panel.
+            </p>
+        </div>
+        {% endif %}
+    </main>
+
+    <!-- Footer Component -->
+    {% include 'components/footer.html' %}
+</div>
+{% endblock %}
