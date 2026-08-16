@@ -2,6 +2,7 @@
   "name": "pravaah",
   "version": "1.0.0",
   "scripts": {
+    "start": "gunicorn config.wsgi:application",
     "build": "tailwindcss -i ./static/src/input.css -o ./static/css/styles.css",
     "watch": "tailwindcss -i ./static/src/input.css -o ./static/css/styles.css --watch"
   },
