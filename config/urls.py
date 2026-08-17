@@ -14,10 +14,12 @@ from pravaah.views import (
     films_list,
     journal_list,
     journal_detail,
+    health_check,
 )
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("health/", health_check, name="health_check"),
     path("", home, name="home"),
     path("events/", events_list, name="events_list"),
     path("events/<slug:slug>/", event_detail, name="event_detail"),

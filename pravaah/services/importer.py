@@ -81,15 +81,17 @@ def process_journal_import(import_obj: JournalImport) -> tuple[Journal | None, b
         import_obj.save(update_fields=["status", "error_message"])
         return None, False
 
-    zip_path = import_obj.source_zip.path
-    if not os.path.exists(zip_path):
+    try:
+        with import_obj.source_zip.open("rb") as f:
+            zip_bytes = f.read()
+    except Exception as exc:
         import_obj.status = JournalImport.Status.FAILED
-        import_obj.error_message = "Source ZIP file does not exist on storage."
+        import_obj.error_message = f"Could not read ZIP file from storage: {exc}"
         import_obj.save(update_fields=["status", "error_message"])
         return None, False
 
     # Extract all files recursively (including nested ZIPs & deep folders)
-    all_files = extract_all_files_from_zip(zip_path)
+    all_files = extract_all_files_from_zip(zip_bytes)
     if not all_files:
         import_obj.status = JournalImport.Status.FAILED
         import_obj.error_message = "Corrupted or invalid ZIP file archive."
@@ -286,11 +288,11 @@ def process_journal_import(import_obj: JournalImport) -> tuple[Journal | None, b
             journal.published_at = import_obj.published_at
         journal.save()
 
-    # Clean up uploaded zip file from disk if present
-    if import_obj.source_zip and os.path.exists(import_obj.source_zip.path):
+    # Clean up uploaded zip file from storage backend if present
+    if import_obj.source_zip:
         try:
-            os.remove(import_obj.source_zip.path)
-        except OSError:
+            import_obj.source_zip.delete(save=False)
+        except Exception:
             pass
 
     # Automatically delete the JournalImport object upon successful conversion

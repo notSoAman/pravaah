@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+from django.db import connection
 from django.db.models import Case, When, Value, IntegerField
 from django.utils import timezone
 from .models import Event, Member, Movie, Journal
@@ -86,4 +88,13 @@ def journal_detail(request, slug):
     return render(request, "journal/detail.html", {"article": article})
 
 
-
+def health_check(request):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT 1")
+        return JsonResponse({"status": "ok"}, status=200)
+    except Exception as exc:
+        return JsonResponse(
+            {"status": "error", "database": "unhealthy", "detail": str(exc)},
+            status=503,
+        )

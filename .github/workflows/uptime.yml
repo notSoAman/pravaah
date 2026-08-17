@@ -1,0 +1,20 @@
+name: Optional Uptime Monitor
+
+on:
+  schedule:
+    # Runs every 15 minutes
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Health Endpoint
+        run: |
+          SITE_URL="${{ secrets.SITE_URL }}"
+          if [ -z "$SITE_URL" ]; then
+            SITE_URL="https://pravaah.onrender.com"
+          fi
+          echo "Pinging ${SITE_URL}/health/..."
+          curl -s -f -w "\nHTTP Status: %{http_code}\nTime: %{time_total}s\n" "${SITE_URL}/health/" || echo "Health check request failed."
