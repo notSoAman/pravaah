@@ -33,7 +33,7 @@ urlpatterns = [
 ]
 
 # Serve uploaded media files (in both dev and production when R2 is disabled)
-if not getattr(settings, "USE_R2", False):
+if not getattr(settings, "USE_R2_STORAGE", False):
     urlpatterns += [
         re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
     ]

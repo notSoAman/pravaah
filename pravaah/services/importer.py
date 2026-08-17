@@ -82,8 +82,13 @@ def process_journal_import(import_obj: JournalImport) -> tuple[Journal | None, b
         return None, False
 
     try:
-        with import_obj.source_zip.open("rb") as f:
-            zip_bytes = f.read()
+        import tempfile
+        with tempfile.SpooledTemporaryFile(max_size=50 * 1024 * 1024) as tmp:
+            with import_obj.source_zip.open("rb") as f:
+                for chunk in f.chunks():
+                    tmp.write(chunk)
+            tmp.seek(0)
+            zip_bytes = tmp.read()
     except Exception as exc:
         import_obj.status = JournalImport.Status.FAILED
         import_obj.error_message = f"Could not read ZIP file from storage: {exc}"

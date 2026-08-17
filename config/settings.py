@@ -141,15 +141,15 @@ WHITENOISE_MANIFEST_STRICT = False
 
 # ─── Cloudflare R2 / Local Media Storage ──────────────────────────────────────
 
+USE_R2_STORAGE = os.environ.get("USE_R2_STORAGE", "False").lower() in ("true", "1", "t")
+
 R2_ACCOUNT_ID = os.environ.get("R2_ACCOUNT_ID", "").strip()
 R2_ACCESS_KEY_ID = os.environ.get("R2_ACCESS_KEY_ID", "").strip()
 R2_SECRET_ACCESS_KEY = os.environ.get("R2_SECRET_ACCESS_KEY", "").strip()
 R2_BUCKET_NAME = os.environ.get("R2_BUCKET_NAME", "").strip()
 R2_CUSTOM_DOMAIN = os.environ.get("R2_CUSTOM_DOMAIN", "").strip()
 
-USE_R2 = bool(R2_ACCESS_KEY_ID and R2_SECRET_ACCESS_KEY and R2_BUCKET_NAME and R2_ACCOUNT_ID)
-
-if USE_R2:
+if USE_R2_STORAGE:
     AWS_ACCESS_KEY_ID = R2_ACCESS_KEY_ID
     AWS_SECRET_ACCESS_KEY = R2_SECRET_ACCESS_KEY
     AWS_STORAGE_BUCKET_NAME = R2_BUCKET_NAME
@@ -164,8 +164,8 @@ if USE_R2:
     else:
         MEDIA_URL = f"https://{R2_BUCKET_NAME}.{R2_ACCOUNT_ID}.r2.cloudflarestorage.com/media/"
 
-    DEFAULT_FILE_STORAGE = "config.storages.MediaStorage"
-    default_storage_backend = "config.storages.MediaStorage"
+    DEFAULT_FILE_STORAGE = "pravaah.storages.MediaStorage"
+    default_storage_backend = "pravaah.storages.MediaStorage"
 else:
     MEDIA_URL = "/media/"
     MEDIA_ROOT = BASE_DIR / "media"
