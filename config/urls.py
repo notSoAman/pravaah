@@ -17,6 +17,9 @@ from pravaah.views import (
     health_check,
 )
 
+from django.urls import re_path
+from django.views.static import serve
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("health/", health_check, name="health_check"),
@@ -29,5 +32,11 @@ urlpatterns = [
     path("journal/<slug:slug>/", journal_detail, name="journal_detail"),
 ]
 
-# Serve uploaded media files (works in both dev and production)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Serve uploaded media files (in both dev and production when R2 is disabled)
+if not getattr(settings, "USE_R2", False):
+    urlpatterns += [
+        re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
+    ]
+else:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
