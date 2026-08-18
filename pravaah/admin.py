@@ -1,5 +1,6 @@
 from django.contrib import admin, messages
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 
 from .models import Event, EventImage, HeroSlide, Journal, JournalImport, Member, Movie
 from .services.importer import process_journal_import
@@ -16,7 +17,7 @@ def render_thumbnail(file_field, width=50, height=50):
             )
         except Exception:
             pass
-    return format_html('<span style="color: #666; font-size: 11px;">No Image</span>')
+    return mark_safe('<span style="color: #666; font-size: 11px;">No Image</span>')
 
 
 def render_preview(file_field, max_width=300):
@@ -29,7 +30,8 @@ def render_preview(file_field, max_width=300):
             )
         except Exception:
             pass
-    return format_html('<span style="color: #888;">No image available</span>')
+    return mark_safe('<span style="color: #888;">No image available</span>')
+
 
 
 @admin.register(Member)
