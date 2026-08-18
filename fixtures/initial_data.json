@@ -1,0 +1,447 @@
+[
+{
+  "model": "pravaah.member",
+  "pk": 1,
+  "fields": {
+    "name": "Nakul Vashishtha",
+    "slug": "nakul-vashishtha",
+    "photo": "members/DSC_2190.JPG.jpeg",
+    "position": "Treasurer",
+    "bio": "Filmmaker in the making, storyteller by instinct.\r\nDriven by cinema, fueled by imagination."
+  }
+},
+{
+  "model": "pravaah.member",
+  "pk": 2,
+  "fields": {
+    "name": "Ujjwal Pandey",
+    "slug": "ujjwal-pandey",
+    "photo": "members/Screenshot_from_2026-08-16_21-24-23.png",
+    "position": "President",
+    "bio": "GREAT THINGS ARE'NT REPEATED"
+  }
+},
+{
+  "model": "pravaah.member",
+  "pk": 3,
+  "fields": {
+    "name": "Aman Singh Choudhary",
+    "slug": "aman-singh-choudhary",
+    "photo": "members/20260816_213002.png",
+    "position": "Vice President",
+    "bio": "Directing club operations, film production logistics, and media workshops across the university."
+  }
+},
+{
+  "model": "pravaah.member",
+  "pk": 4,
+  "fields": {
+    "name": "Yashwardhan Singh Hudda",
+    "slug": "yashwardhan-singh-hudda",
+    "photo": "members/WhatsApp_Image_2026-08-16_at_9.23.34_PM.jpeg",
+    "position": "Member",
+    "bio": ""
+  }
+},
+{
+  "model": "pravaah.member",
+  "pk": 5,
+  "fields": {
+    "name": "Vaibhav Singh",
+    "slug": "vaibhav-singh",
+    "photo": "members/WhatsApp_Image_2026-08-16_at_9.36.08_PM.jpeg",
+    "position": "Member",
+    "bio": ""
+  }
+},
+{
+  "model": "pravaah.member",
+  "pk": 6,
+  "fields": {
+    "name": "Aditi Agarwal",
+    "slug": "aditi-agarwal",
+    "photo": "members/Screenshot_from_2026-08-16_21-46-59.png",
+    "position": "Executive Member",
+    "bio": ""
+  }
+},
+{
+  "model": "pravaah.member",
+  "pk": 8,
+  "fields": {
+    "name": "Sanyam Jain",
+    "slug": "sanyam-jain",
+    "photo": "members/20260421_2012562.jpg.jpeg",
+    "position": "Executive Member",
+    "bio": "Filmmaker | Social Media management | PR Strategist | Creative Director"
+  }
+},
+{
+  "model": "pravaah.member",
+  "pk": 10,
+  "fields": {
+    "name": "Anik Verma",
+    "slug": "anik-verma",
+    "photo": "members/Screenshot_from_2026-08-16_21-53-25.png",
+    "position": "Executive Member",
+    "bio": ""
+  }
+},
+{
+  "model": "pravaah.member",
+  "pk": 11,
+  "fields": {
+    "name": "Harshal Purthi",
+    "slug": "harshal-purthi",
+    "photo": "members/WhatsApp_Image_2026-08-16_at_9.55.05_PM.jpeg",
+    "position": "Member",
+    "bio": ""
+  }
+},
+{
+  "model": "pravaah.member",
+  "pk": 12,
+  "fields": {
+    "name": "Vikrant Singh Chauhan",
+    "slug": "vikrant-singh-chauhan",
+    "photo": "members/WhatsApp_Image_2026-08-16_at_9.56.59_PM.jpeg",
+    "position": "Member",
+    "bio": ""
+  }
+},
+{
+  "model": "pravaah.member",
+  "pk": 13,
+  "fields": {
+    "name": "Nitya Rai",
+    "slug": "nitya-rai",
+    "photo": "members/Screenshot_from_2026-08-16_21-47-59_GMKsAEx.png",
+    "position": "Secretary",
+    "bio": "Managing communications, editorial archives, and festival correspondence."
+  }
+},
+{
+  "model": "pravaah.member",
+  "pk": 14,
+  "fields": {
+    "name": "Raghav Gupta",
+    "slug": "raghav-gupta",
+    "photo": "members/Screenshot_from_2026-08-16_21-51-03_5iqPnmH.png",
+    "position": "Joint Secretary",
+    "bio": "Filmmaker. Unfiltered. Storyteller. Raw — chasing stories, capturing chaos, creating my own frame."
+  }
+},
+{
+  "model": "pravaah.member",
+  "pk": 17,
+  "fields": {
+    "name": "Vasudha Chaudhary",
+    "slug": "vasudha-chaudhary",
+    "photo": "",
+    "position": "Member",
+    "bio": ""
+  }
+},
+{
+  "model": "pravaah.member",
+  "pk": 18,
+  "fields": {
+    "name": "Chirag Parjan",
+    "slug": "chirag-parjan",
+    "photo": "",
+    "position": "Member",
+    "bio": ""
+  }
+},
+{
+  "model": "pravaah.event",
+  "pk": 1,
+  "fields": {
+    "title": "Vardaan Internation Film Festival 2026",
+    "slug": "vardaan-internation-film-festival-2026",
+    "date": "2026-02-27",
+    "cover_image": "events/covers/IMG_9072.JPG",
+    "description": "The Vardaan International Film Festival celebrates the art of cinema. Organized by Dadhichi Deh Dan Samiti, it focused the noble cause of body, eye, and organ donation.\r\n\r\nVenue: Guru Gobind Singh Indraprastha University (GGSIPU) campus\r\n\r\nNotable Guests: Included prominent personalities and leaders such as actor Manoj Joshi and community figures supporting public health campaigns.",
+    "created_at": "2026-08-16T12:16:06.999Z",
+    "updated_at": "2026-08-16T12:16:06.999Z"
+  }
+},
+{
+  "model": "pravaah.event",
+  "pk": 2,
+  "fields": {
+    "title": "Alfaaz 2025",
+    "slug": "alfaaz-2025",
+    "date": "2025-11-03",
+    "cover_image": "events/covers/DSC_8950.JPG",
+    "description": "A celebration of imagination, ideas and impactful expression under the inspiring theme. \"Words That Matter & Voices That Transform\"",
+    "created_at": "2026-08-16T12:21:08.218Z",
+    "updated_at": "2026-08-16T12:21:08.218Z"
+  }
+},
+{
+  "model": "pravaah.event",
+  "pk": 3,
+  "fields": {
+    "title": "Synergy 2025 : The Offical USMC Freshers",
+    "slug": "synergy-2025-the-offical-usmc-freshers",
+    "date": "2025-09-29",
+    "cover_image": "events/covers/DSC_7249.JPG",
+    "description": "The offical freshers party fully managed and organised by the senior classes of USMC each year to gracefully assimilate the new batch of freshers.",
+    "created_at": "2026-08-16T12:28:55.204Z",
+    "updated_at": "2026-08-16T12:28:55.204Z"
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 5,
+  "fields": {
+    "event": 1,
+    "image": "events/gallery/IMG_8976.JPG",
+    "caption": "",
+    "order": 0
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 6,
+  "fields": {
+    "event": 1,
+    "image": "events/gallery/IMG_6845_o8DxZJ1.JPG",
+    "caption": "",
+    "order": 1
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 7,
+  "fields": {
+    "event": 1,
+    "image": "events/gallery/IMG_6958_KCDIhX4.JPG",
+    "caption": "",
+    "order": 2
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 11,
+  "fields": {
+    "event": 2,
+    "image": "events/gallery/IMG_6379.JPG",
+    "caption": "",
+    "order": 0
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 12,
+  "fields": {
+    "event": 2,
+    "image": "events/gallery/IMG_6519.JPG",
+    "caption": "",
+    "order": 1
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 13,
+  "fields": {
+    "event": 2,
+    "image": "events/gallery/IMG_6337.JPG",
+    "caption": "",
+    "order": 2
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 14,
+  "fields": {
+    "event": 2,
+    "image": "events/gallery/IMG_6559.JPG",
+    "caption": "",
+    "order": 3
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 15,
+  "fields": {
+    "event": 2,
+    "image": "events/gallery/IMG_6570.JPG",
+    "caption": "",
+    "order": 4
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 16,
+  "fields": {
+    "event": 2,
+    "image": "events/gallery/DSC_8953.JPG",
+    "caption": "",
+    "order": 5
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 17,
+  "fields": {
+    "event": 3,
+    "image": "events/gallery/DSC_7558.JPG",
+    "caption": "",
+    "order": 0
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 18,
+  "fields": {
+    "event": 3,
+    "image": "events/gallery/DSC_7181.JPG",
+    "caption": "",
+    "order": 1
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 19,
+  "fields": {
+    "event": 3,
+    "image": "events/gallery/DSC_7221.JPG",
+    "caption": "",
+    "order": 2
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 20,
+  "fields": {
+    "event": 3,
+    "image": "events/gallery/DSC_7543.JPG",
+    "caption": "",
+    "order": 3
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 21,
+  "fields": {
+    "event": 1,
+    "image": "events/gallery/IMG_4989.JPG",
+    "caption": "",
+    "order": 3
+  }
+},
+{
+  "model": "pravaah.eventimage",
+  "pk": 22,
+  "fields": {
+    "event": 1,
+    "image": "events/gallery/IMG_4955.JPG",
+    "caption": "",
+    "order": 4
+  }
+},
+{
+  "model": "pravaah.movie",
+  "pk": 1,
+  "fields": {
+    "title": "Chahta Kya Hai",
+    "slug": "chahta-kya-hai",
+    "description": "Everyone tells success and failure stories but this story is about an average guy who doesn't know ki vo \"CHAHTA KYA HAI\"",
+    "poster_image": "movies/posters/file_00000000b8b48211b44ddc8c2515fb59.png",
+    "youtube_url": "https://www.youtube.com/watch?v=7qITM50sn68",
+    "release_date": "2025-03-25"
+  }
+},
+{
+  "model": "pravaah.movie",
+  "pk": 2,
+  "fields": {
+    "title": "Falling Pieces",
+    "slug": "falling-pieces",
+    "description": "A scattering story of a young man, \r\nstruggling with his addiction both \r\nmetaphorically and physically, \r\nbattling a war with no means to \r\ndefend himself, ultimately meeting \r\nthe same fate as an ant \r\nin a death spiral",
+    "poster_image": "movies/posters/falling_pieces_poster.jpg",
+    "youtube_url": "https://www.youtube.com/watch?v=bGI3mXnIxtU",
+    "release_date": "2025-10-19"
+  }
+},
+{
+  "model": "pravaah.movie",
+  "pk": 3,
+  "fields": {
+    "title": "VARNIKA",
+    "slug": "varnika",
+    "description": "Varnika is a story about a blind girl still very optimistic and a boy named VYOM who is very Pessimistic in nature",
+    "poster_image": "movies/posters/varnika.png",
+    "youtube_url": "https://www.youtube.com/watch?v=FhNNcn4ClwE",
+    "release_date": "2026-03-07"
+  }
+},
+{
+  "model": "pravaah.movie",
+  "pk": 4,
+  "fields": {
+    "title": "ZAKHAM SINGH",
+    "slug": "zakham-singh",
+    "description": "story about a psycho killer who falls in love for a girl",
+    "poster_image": "movies/posters/file_0000000070c471f8bb4768532aa63959.png",
+    "youtube_url": "https://www.youtube.com/watch?v=dvlA5RuwCdY",
+    "release_date": "2026-04-16"
+  }
+},
+{
+  "model": "pravaah.journal",
+  "pk": 7,
+  "fields": {
+    "title": "Journal Writing Guide",
+    "slug": "journal-writing-guide",
+    "author": 3,
+    "cover_image": "journal/import_covers/dan-counsell-zIwAchjDirM-unsplash_dWEshHR.jpg",
+    "content": "<p class=\"\">PRAVAAH Journal — Writing Guide</p><ol class=\"numbered-list\"><li>Write entirely in Notion</li></ol><p class=\"\">You don't need to know:</p><p class=\"\">HTML<br>Markdown<br>programming<br>website design</p><p class=\"\">Just write your article normally.</p><ol class=\"numbered-list\"><li>Use normal Notion formatting</li></ol><p class=\"\">You can use:</p><p class=\"\">headings<br>paragraphs<br>bold<br>italic<br>links<br>quotes<br>bullet lists<br>numbered lists<br>tables<br>images<br>YouTube embeds<br>Vimeo embeds<br>3. Images</p><p class=\"\">Add photographs by upload,link or unsplash to your Notion article.</p><p class=\"\">Use good-quality photographs and make sure PRAVAAH has permission to publish them.</p><ol class=\"numbered-list\"><li>Videos</li></ol><p class=\"\">For videos, use:</p><p class=\"\">YouTube or Vimeo embeds.</p><p class=\"\">Do not upload large video files directly into the article.</p><ol class=\"numbered-list\"><li>Avoid special Notion features</li></ol><p class=\"\">For V1, don't use:</p><p class=\"\">databases<br>icons<br>cover image within notion<br>toggles<br>synced blocks<br>Notion pages embedded inside articles<br>interactive widgets<br>complicated third-party embeds<br>forms<br>anything that behaves more like an application than an article</p><figure class=\"image\"><a href=\"https://images.unsplash.com/photo-1455849318743-b2233052fcff?ixlib=rb-4.1.0&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb\"><img src=\"https://images.unsplash.com/photo-1455849318743-b2233052fcff?ixlib=rb-4.1.0&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb\"></a></figure><p class=\"\">\n</p>",
+    "published_at": "2026-08-16T18:29:57Z",
+    "created_at": "2026-08-16T18:30:07.057Z",
+    "updated_at": "2026-08-16T18:30:07.057Z"
+  }
+},
+{
+  "model": "pravaah.heroslide",
+  "pk": 1,
+  "fields": {
+    "image": "hero/hero_camera.png",
+    "message": "Pravaah welcomes you, grab your camera.",
+    "order": 0,
+    "is_active": true
+  }
+},
+{
+  "model": "pravaah.heroslide",
+  "pk": 2,
+  "fields": {
+    "image": "hero/hero_mic.png",
+    "message": "प्रवाह welcomes you, grab your mic.",
+    "order": 1,
+    "is_active": true
+  }
+},
+{
+  "model": "pravaah.heroslide",
+  "pk": 3,
+  "fields": {
+    "image": "hero/hero_notebook.png",
+    "message": "ਪ੍ਰਵਾਹ welcomes you, grab your notebook.",
+    "order": 2,
+    "is_active": true
+  }
+},
+{
+  "model": "pravaah.heroslide",
+  "pk": 4,
+  "fields": {
+    "image": "hero/hero_headphones.png",
+    "message": "بہاؤ welcomes you, grab your headphones.",
+    "order": 3,
+    "is_active": true
+  }
+}
+]

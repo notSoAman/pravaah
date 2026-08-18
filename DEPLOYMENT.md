@@ -1,115 +1,71 @@
-# PRAVAAH Deployment & Database Migration Guide
+# PRAVAAH Deployment & Management Guide
 
-This guide covers migrating the PRAVAAH Django application from SQLite to Neon PostgreSQL for production hosting on Render, while preserving SQLite for local development.
-
----
-
-## 1. Local Development
-
-In local development, the application defaults to using SQLite (`db.sqlite3`) if `DATABASE_URL` is not defined in the environment.
-
-### Setup Steps:
-1. Create and activate a Python virtual environment:
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # On Linux/macOS
-   # .venv\Scripts\activate   # On Windows
-   ```
-
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Configure local environment variables:
-   Copy `.env.example` to `.env`:
-   ```bash
-   cp .env.example .env
-   ```
-
-4. Run database migrations for local SQLite:
-   ```bash
-   python manage.py migrate
-   ```
-
-5. Start the development server:
-   ```bash
-   python manage.py runserver
-   ```
+This guide covers deploying the **PRAVAAH** Django application to **Render**, backed by **Supabase PostgreSQL** for data and **Supabase Storage** for media assets.
 
 ---
 
-## 2. Neon Setup (PostgreSQL)
+## 1. Environment Variables on Render
 
-1. **Create Account & Project**:
-   Sign in to [Neon PostgreSQL](https://neon.tech) and create a new project (e.g., `pravaah-db`).
+In your Render Dashboard (**Web Service -> Environment**), configure the following environment variables:
 
-2. **Get Connection String**:
-   - Navigate to the Neon Dashboard -> **Dashboard** / **Connection Details**.
-   - Copy the PostgreSQL connection string URI. Ensure `?sslmode=require` is appended to the connection URL.
-   - Example connection string:
-     `postgresql://user:password@ep-xyz.us-east-2.aws.neon.tech/pravaah_db?sslmode=require`
-
-3. **Verify Settings**:
-   Django will parse `DATABASE_URL` using `dj-database-url` and `psycopg` whenever `DATABASE_URL` is present.
-
----
-
-## 3. Render Deployment
-
-1. **Create a Web Service on Render**:
-   - Log in to [Render](https://render.com).
-   - Click **New +** -> **Web Service**.
-   - Connect your GitHub repository (`pravaah`).
-
-2. **Service Configuration**:
-   - **Environment**: Python 3.12
-   - **Build Command**: `./build.sh`
-   - **Start Command**: `gunicorn config.wsgi:application`
-
-3. **Configure Environment Variables**:
-   Add all required environment variables in the Render Dashboard (under **Environment** tab).
-
-4. **Deploy**:
-   Click **Create Web Service** to start the initial deployment.
-
----
-
-## 4. Required Environment Variables
-
-Configure the following environment variables on Render:
-
-| Variable | Description | Example / Value |
+| Variable Name | Required Value | Description |
 | :--- | :--- | :--- |
-| `SECRET_KEY` | Production Django secret key | `your-secure-random-secret-key` |
-| `DEBUG` | Enable/disable Django debug mode | `False` |
-| `ALLOWED_HOSTS` | Comma-separated allowed domain names | `pravaah.onrender.com,.onrender.com` |
-| `CSRF_TRUSTED_ORIGINS` | Comma-separated trusted origins | `https://pravaah.onrender.com,https://*.onrender.com` |
-| `DATABASE_URL` | Neon PostgreSQL connection URI | `postgresql://user:pass@ep-xyz.us-east-2.aws.neon.tech/pravaah_db?sslmode=require` |
-| `SITE_URL` | Public base URL of the site | `https://pravaah.onrender.com` |
+| `SECRET_KEY` | *(Your secure Django secret key)* | Production Django secret key |
+| `DEBUG` | `False` | Disable debug mode in production |
+| `ALLOWED_HOSTS` | `pravaah.onrender.com,.onrender.com,localhost,127.0.0.1` | Allowed host headers |
+| `CSRF_TRUSTED_ORIGINS` | `https://pravaah.onrender.com,https://*.onrender.com` | Trusted origins for CSRF protection |
+| `DATABASE_URL` | `postgresql://postgres.rgarjpnbfgcyygnrqvuz:partly-winnings-fax@aws-0-ap-southeast-2.pooler.supabase.com:5432/postgres?sslmode=require` | Supabase PostgreSQL Connection String |
+| `USE_SUPABASE_STORAGE` | `True` | Enables Supabase Storage backend |
+| `SUPABASE_PROJECT_URL` | `https://rgarjpnbfgcyygnrqvuz.supabase.co` | Supabase project URL |
+| `SUPABASE_SECRET_KEY` | `<your_supabase_secret_key>` | Supabase service API key |
+| `SUPABASE_BUCKET` | `media-pravaah` | Supabase storage bucket name |
+| `SITE_URL` | `https://pravaah.onrender.com` | Public base URL of the site |
 
 ---
 
-## 5. Migration Steps
+## 2. Django Admin Capabilities (/admin)
 
-### Initial Production Database Migration
-When deploying to Render with `DATABASE_URL` configured, database migrations are automatically applied during build execution via `./build.sh`:
+Once deployed to Render (e.g. `https://pravaah.onrender.com/admin/`), you can log into Django Admin and perform full CRUD operations directly on Supabase:
+
+### A. Adding Records & Uploading Media
+- Creating a new **Member**, **Event**, **Movie**, **HeroSlide**, or **Journal**:
+  - Database row is inserted directly into **Supabase PostgreSQL**.
+  - Attached images are automatically optimized and saved to your **Supabase Storage** bucket (`media-pravaah`).
+
+### B. Updating & Replacing Images
+- Replacing an existing photo/cover image:
+  - The new image is uploaded to **Supabase Storage**.
+  - The old image is **automatically deleted** from Supabase Storage so no orphan files accumulate.
+
+### C. Deleting Records & Bulk Deletion
+- Deleting an individual record or performing **bulk deletion** (`Delete selected...`):
+  - Database rows are deleted from **Supabase PostgreSQL**.
+  - Associated media files are **automatically deleted** from **Supabase Storage**.
+
+---
+
+## 3. Helper Management Commands
+
+Run these from your terminal when needed:
+
+### Verify Storage Audit
+Audits all database records against Supabase Storage and reports missing or orphaned files:
 ```bash
-python manage.py migrate
+python manage.py verify_storage
 ```
 
-### Manual Database Migration
-If you need to run migrations manually against your Neon database from your local machine:
+### Sync Local Media to Supabase
+Uploads all local media files into your Supabase Storage bucket:
 ```bash
-DATABASE_URL="postgresql://user:pass@ep-xyz.us-east-2.aws.neon.tech/pravaah_db?sslmode=require" python manage.py migrate
+python manage.py sync_media_to_supabase --overwrite
 ```
 
-### Health Check Verification
-Verify that the database and web service are operational by querying the health check endpoint:
+### Health Check
+Verify web service & database status:
 ```bash
 curl -i https://pravaah.onrender.com/health/
 ```
-Expected Response (HTTP Status 200 OK):
+Expected Response (`HTTP 200 OK`):
 ```json
 {
   "status": "ok"

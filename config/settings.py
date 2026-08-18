@@ -139,33 +139,20 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 WHITENOISE_MANIFEST_STRICT = False
 
-# ─── Cloudflare R2 / Local Media Storage ──────────────────────────────────────
+# ─── Supabase / Local Media Storage ───────────────────────────────────────────
 
-USE_R2_STORAGE = os.environ.get("USE_R2_STORAGE", "False").lower() in ("true", "1", "t")
+USE_SUPABASE_STORAGE = os.environ.get(
+    "USE_SUPABASE_STORAGE", "False"
+).lower() in ("true", "1", "t")
 
-R2_ACCOUNT_ID = os.environ.get("R2_ACCOUNT_ID", "").strip()
-R2_ACCESS_KEY_ID = os.environ.get("R2_ACCESS_KEY_ID", "").strip()
-R2_SECRET_ACCESS_KEY = os.environ.get("R2_SECRET_ACCESS_KEY", "").strip()
-R2_BUCKET_NAME = os.environ.get("R2_BUCKET_NAME", "").strip()
-R2_CUSTOM_DOMAIN = os.environ.get("R2_CUSTOM_DOMAIN", "").strip()
+SUPABASE_PROJECT_URL = os.environ.get("SUPABASE_PROJECT_URL", "").strip()
+SUPABASE_SECRET_KEY = os.environ.get("SUPABASE_SECRET_KEY", "").strip()
+SUPABASE_BUCKET = os.environ.get("SUPABASE_BUCKET", "media-pravaah").strip()
 
-if USE_R2_STORAGE:
-    AWS_ACCESS_KEY_ID = R2_ACCESS_KEY_ID
-    AWS_SECRET_ACCESS_KEY = R2_SECRET_ACCESS_KEY
-    AWS_STORAGE_BUCKET_NAME = R2_BUCKET_NAME
-    AWS_S3_ENDPOINT_URL = f"https://{R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
-    AWS_S3_SIGNATURE_VERSION = "s3v4"
-    AWS_S3_REGION_NAME = "auto"
-    AWS_S3_FILE_OVERWRITE = False
-
-    if R2_CUSTOM_DOMAIN:
-        AWS_S3_CUSTOM_DOMAIN = R2_CUSTOM_DOMAIN
-        MEDIA_URL = f"https://{R2_CUSTOM_DOMAIN}/media/"
-    else:
-        MEDIA_URL = f"https://{R2_BUCKET_NAME}.{R2_ACCOUNT_ID}.r2.cloudflarestorage.com/media/"
-
-    DEFAULT_FILE_STORAGE = "pravaah.storages.MediaStorage"
-    default_storage_backend = "pravaah.storages.MediaStorage"
+if USE_SUPABASE_STORAGE:
+    DEFAULT_FILE_STORAGE = "pravaah.storages.SupabaseStorage"
+    default_storage_backend = "pravaah.storages.SupabaseStorage"
+    MEDIA_URL = f"{SUPABASE_PROJECT_URL.rstrip('/')}/storage/v1/object/public/{SUPABASE_BUCKET}/"
 else:
     MEDIA_URL = "/media/"
     MEDIA_ROOT = BASE_DIR / "media"
@@ -180,3 +167,4 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
+
