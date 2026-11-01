@@ -2,8 +2,9 @@ name: Render Keep Awake
 
 on:
   schedule:
-    # Ping before Render's 15-minute idle shutdown window.
-    - cron: '*/10 * * * *'
+    # Ping every 5 minutes to guarantee staying under Render's 15-minute idle limit,
+    # even when GitHub Actions cron runs experience high-load delays.
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -14,10 +15,61 @@ jobs:
         env:
           SITE_URL: ${{ secrets.SITE_URL }}
         run: |
-          if [ -z "$SITE_URL" ]; then
-            SITE_URL="https://pravaah.onrender.com"
+          TARGET_URL="${SITE_URL:-https://pravaah.onrender.com}"
+          # Strip trailing slashes
+          TARGET_URL="${TARGET_URL%/}"
+          HEALTH_URL="${TARGET_URL}/health/"
+          ROOT_URL="${TARGET_URL}/"
+
+          USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 (PravaahKeepAlive/1.0)"
+          ACCEPT_HEADER="text/html,application/xhtml+xml,application/xml;q=0.9,application/json,*/*;q=0.8"
+
+          echo "=========================================="
+          echo "Triggering Keep-Awake Ping for: ${TARGET_URL}"
+          echo "Timestamp (UTC): $(date -u)"
+          echo "=========================================="
+
+          # 1. Attempt /health/ endpoint with 60s timeout for cold starts and 2 retries
+          echo "==> Pinging ${HEALTH_URL}..."
+          HTTP_CODE=$(curl --silent --show-error --location \
+            --max-time 60 \
+            --retry 2 \
+            --retry-delay 5 \
+            -H "User-Agent: ${USER_AGENT}" \
+            -H "Accept: ${ACCEPT_HEADER}" \
+            --write-out "%{http_code}" \
+            --output /tmp/health_response.txt \
+            "${HEALTH_URL}" || echo "000")
+
+          echo "Response code: ${HTTP_CODE}"
+          if [ "${HTTP_CODE}" -ge 200 ] && [ "${HTTP_CODE}" -lt 400 ]; then
+            echo "SUCCESS: Web service is active and responsive (HTTP ${HTTP_CODE})."
+            exit 0
           fi
-          echo "Pinging ${SITE_URL}/health/..."
-          curl --fail --show-error --silent --max-time 30 \
-            --write-out "\nHTTP Status: %{http_code}\nTime: %{time_total}s\n" \
-            "${SITE_URL%/}/health/"
+
+          echo "WARNING: /health/ returned HTTP ${HTTP_CODE}."
+          cat /tmp/health_response.txt 2>/dev/null || true
+          echo ""
+
+          # 2. Fallback attempt to root / endpoint
+          echo "==> Attempting fallback ping to ${ROOT_URL}..."
+          FALLBACK_CODE=$(curl --silent --show-error --location \
+            --max-time 60 \
+            --retry 2 \
+            --retry-delay 5 \
+            -H "User-Agent: ${USER_AGENT}" \
+            -H "Accept: ${ACCEPT_HEADER}" \
+            --write-out "%{http_code}" \
+            --output /dev/null \
+            "${ROOT_URL}" || echo "000")
+
+          echo "Fallback response code: ${FALLBACK_CODE}"
+          if [ "${FALLBACK_CODE}" -ge 200 ] && [ "${FALLBACK_CODE}" -lt 400 ]; then
+            echo "SUCCESS: Root URL reached and service kept awake (HTTP ${FALLBACK_CODE})."
+            exit 0
+          fi
+
+          echo "ERROR: Unable to get a successful response from ${TARGET_URL}."
+          echo "Tip: Verify that the SITE_URL secret matches the exact Render service URL."
+          exit 1
+

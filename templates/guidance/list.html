@@ -5,51 +5,101 @@
 
 {% block content %}
 <div class="min-h-screen bg-black text-white" x-data="{ menuOpen: false }">
+    <!-- Navbar Component -->
     {% include 'components/navbar.html' %}
+
+    <!-- Fullscreen Menu Overlay -->
     {% include 'components/menu_overlay.html' %}
 
-    <header class="relative border-b border-[#111] px-6 pb-16 pt-28 md:px-12 md:pb-24 md:pt-40 lg:px-20 lg:pb-32 lg:pt-48">
-        <div class="relative z-10 mx-auto w-full max-w-7xl">
-            <span class="mb-4 block text-[10px] font-medium uppercase tracking-[0.3em] text-[#FF5500]">
+    <!-- Page Header -->
+    <header class="relative pt-28 md:pt-40 lg:pt-48 pb-16 md:pb-24 lg:pb-32 px-6 md:px-12 lg:px-20 border-b border-[#111]">
+        <div class="relative z-10 w-full max-w-7xl mx-auto">
+            <span class="text-[10px] uppercase tracking-[0.3em] text-[#FF5500] font-medium block mb-4">
                 FACULTY &amp; ADVISORS
             </span>
-            <h1 class="font-serif text-6xl font-light leading-[0.95] tracking-tight text-white md:text-8xl lg:text-9xl">
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-serif font-light leading-[0.95] tracking-tight text-white">
                 GUIDANCE
             </h1>
-            <p class="mt-6 max-w-2xl text-sm font-light leading-relaxed tracking-wide text-[#777] md:mt-8 md:text-base">
-                The teachers and mentors who guide PRAVAAH’s work in media and communication.
+            <p class="mt-6 md:mt-8 text-sm md:text-base text-[#666] font-light max-w-2xl leading-relaxed tracking-wide">
+                The teachers, mentors, and advisors who guide PRAVAAH's work in media and communication.
             </p>
         </div>
     </header>
 
-    <main class="mx-auto max-w-7xl space-y-20 px-6 py-16 md:space-y-28 md:px-12 md:py-28 lg:px-20 lg:py-36">
+    <main class="px-6 md:px-12 lg:px-20 py-16 md:py-28 lg:py-36 max-w-7xl mx-auto space-y-24 md:space-y-36 lg:space-y-48">
+        {% if guides %}
         {% for guide in guides %}
-        <article class="group grid grid-cols-1 items-start gap-8 md:grid-cols-12 md:gap-16">
-            <div class="relative aspect-[4/5] overflow-hidden border border-[#171717] bg-[#090909] md:col-span-5">
-                {% if guide.photo %}
-                <img src="{{ guide.photo.url }}" alt="Portrait of {{ guide.name }}" class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" loading="lazy">
-                {% elif guide.portrait %}
-                <img src="{% static guide.portrait %}" alt="Portrait of {{ guide.name }}" class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" loading="lazy">
-                {% else %}
-                <div class="flex h-full w-full items-center justify-center" aria-label="Portrait to be added">
-                    <span class="font-serif text-8xl font-light text-[#242424] md:text-9xl">{{ guide.name|slice:":1"|upper }}</span>
-                </div>
-                {% endif %}
+        <section class="space-y-8 md:space-y-12">
+            <div class="flex items-center gap-4">
+                <span class="text-[10px] uppercase tracking-[0.3em] text-[#444] font-medium">0{{ forloop.counter }} // {{ guide.position }}</span>
+                <div class="h-[1px] flex-1 bg-[#111]"></div>
             </div>
 
-            <div class="flex flex-col justify-center space-y-5 pt-2 md:col-span-7 md:min-h-[20rem] md:pt-4">
-                <span class="text-[10px] font-medium uppercase tracking-[0.25em] text-[#777]">{{ guide.position }}</span>
-                <h2 class="max-w-3xl font-serif text-4xl font-light leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">
-                    {{ guide.name }}
-                </h2>
-                {% if guide.bio %}
-                <p class="max-w-xl text-sm font-light leading-relaxed text-[#888] md:text-base">{{ guide.bio }}</p>
-                {% endif %}
+            <div class="group grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-start">
+                <!-- Portrait Photo / Editorial Placeholder -->
+                <div class="md:col-span-6 lg:col-span-5 aspect-[3/4] overflow-hidden bg-[#0a0a0a] relative border border-[#111]">
+                    {% if guide.photo %}
+                    <img 
+                        src="{{ guide.photo.url }}" 
+                        alt="{{ guide.name }}"
+                        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        loading="lazy"
+                    >
+                    {% elif guide.portrait %}
+                    <img 
+                        src="{% static guide.portrait %}" 
+                        alt="{{ guide.name }}"
+                        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        loading="lazy"
+                    >
+                    {% else %}
+                    <!-- Elegant Typography Placeholder -->
+                    <div class="w-full h-full flex flex-col items-center justify-center p-8 bg-gradient-to-b from-[#0e0e0e] to-[#050505]">
+                        <span class="text-7xl md:text-9xl font-serif font-extralight text-[#222] group-hover:text-[#333] transition-colors duration-500 select-none">
+                            {{ guide.name|slice:":1"|upper }}
+                        </span>
+                        <span class="mt-4 text-[9px] uppercase tracking-[0.3em] text-[#444] font-mono">
+                            PRAVAAH ARCHIVE
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Profile Info -->
+                <div class="md:col-span-6 lg:col-span-7 flex flex-col justify-center space-y-6 pt-2 md:pt-4">
+                    <div>
+                        <span class="text-[11px] uppercase tracking-[0.25em] text-[#666] font-medium block mb-2">
+                            {{ guide.position }}
+                        </span>
+                        <h2 class="text-4xl md:text-6xl lg:text-7xl font-serif font-light leading-tight tracking-tight text-white">
+                            {{ guide.name }}
+                        </h2>
+                    </div>
+
+                    {% if guide.bio %}
+                    <p class="text-sm md:text-base text-[#888] font-light leading-relaxed max-w-xl">
+                        {{ guide.bio }}
+                    </p>
+                    {% endif %}
+                </div>
             </div>
-        </article>
-        {% empty %}
-        <p class="text-sm font-light text-[#777]">Guidance profiles will appear here soon.</p>
+        </section>
         {% endfor %}
+
+        {% else %}
+        <!-- Empty State -->
+        <div class="max-w-2xl mx-auto text-center py-32 md:py-48 space-y-6">
+            <h2 class="text-3xl md:text-5xl font-serif font-light tracking-wide text-white">
+                No Guidance Mentors Listed
+            </h2>
+            <p class="text-[#666] font-light leading-relaxed">
+                Guidance profiles will appear here once added through the Django admin panel.
+            </p>
+        </div>
+        {% endif %}
     </main>
+
+    <!-- Footer Component -->
+    {% include 'components/footer.html' %}
 </div>
 {% endblock %}
