@@ -2,7 +2,7 @@ from django.contrib import admin, messages
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
-from .models import Event, EventImage, HeroSlide, Journal, JournalImport, Member, Movie
+from .models import Event, EventImage, Guide, HeroSlide, Journal, JournalImport, Member, Movie
 from .services.importer import process_journal_import
 
 
@@ -41,6 +41,24 @@ class MemberAdmin(admin.ModelAdmin):
     search_fields = ("name", "position", "bio")
     list_filter = ("position",)
     prepopulated_fields = {"slug": ("name",)}
+    readonly_fields = ("image_preview",)
+
+    @admin.display(description="Photo")
+    def thumbnail(self, obj):
+        return render_thumbnail(obj.photo)
+
+    @admin.display(description="Photo Preview")
+    def image_preview(self, obj):
+        return render_preview(obj.photo)
+
+
+@admin.register(Guide)
+class GuideAdmin(admin.ModelAdmin):
+    list_display = ("thumbnail", "name", "position", "order")
+    list_display_links = ("thumbnail", "name")
+    list_editable = ("order",)
+    search_fields = ("name", "position", "bio")
+    ordering = ("order", "id")
     readonly_fields = ("image_preview",)
 
     @admin.display(description="Photo")

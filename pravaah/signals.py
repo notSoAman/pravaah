@@ -1,7 +1,7 @@
 from django.db.models.signals import post_delete, pre_save
 from django.dispatch import receiver
 
-from .models import Event, EventImage, HeroSlide, Journal, JournalImport, Member, Movie
+from .models import Event, EventImage, Guide, HeroSlide, Journal, JournalImport, Member, Movie
 from .utils.image_processing import (
     optimize_cover_image,
     optimize_gallery_image,
@@ -97,6 +97,17 @@ def handle_member_pre_save(sender, instance, **kwargs):
 
 @receiver(post_delete, sender=Member)
 def handle_member_post_delete(sender, instance, **kwargs):
+    _delete_file_on_record_delete(instance, "photo")
+
+
+@receiver(pre_save, sender=Guide)
+def handle_guide_pre_save(sender, instance, **kwargs):
+    _cleanup_old_file_on_update(instance, "photo")
+    _process_image_upload(instance, "photo", optimize_team_photo)
+
+
+@receiver(post_delete, sender=Guide)
+def handle_guide_post_delete(sender, instance, **kwargs):
     _delete_file_on_record_delete(instance, "photo")
 
 

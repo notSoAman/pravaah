@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.db import connection
 from django.db.models import Case, When, Value, IntegerField
 from django.utils import timezone
-from .models import Event, Member, Movie, Journal
+from .models import Event, Guide, Member, Movie, Journal
 
 
 def home(request):
@@ -60,6 +60,11 @@ def team_list(request):
         "general_members": general_members,
     }
     return render(request, "team/list.html", context)
+
+
+def guidance_list(request):
+    guides = Guide.objects.all()
+    return render(request, "guidance/list.html", {"guides": guides})
 
 
 def films_list(request):

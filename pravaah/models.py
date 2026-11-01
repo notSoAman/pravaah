@@ -23,6 +23,25 @@ class Member(models.Model):
         return self.name
 
 
+class Guide(models.Model):
+    name = models.CharField(max_length=150)
+    photo = models.ImageField(upload_to="guides/", blank=True, null=True)
+    portrait = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Optional path to a bundled static portrait, used when no uploaded photo is set.",
+    )
+    position = models.CharField(max_length=180)
+    bio = models.TextField(blank=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "id"]
+
+    def __str__(self):
+        return self.name
+
+
 class Event(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=220, unique=True, blank=True)

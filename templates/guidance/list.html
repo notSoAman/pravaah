@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Guidance | PRAVAAH{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-black text-white" x-data="{ menuOpen: false }">
+    {% include 'components/navbar.html' %}
+    {% include 'components/menu_overlay.html' %}
+
+    <header class="relative border-b border-[#111] px-6 pb-16 pt-28 md:px-12 md:pb-24 md:pt-40 lg:px-20 lg:pb-32 lg:pt-48">
+        <div class="relative z-10 mx-auto w-full max-w-7xl">
+            <span class="mb-4 block text-[10px] font-medium uppercase tracking-[0.3em] text-[#FF5500]">
+                FACULTY &amp; ADVISORS
+            </span>
+            <h1 class="font-serif text-6xl font-light leading-[0.95] tracking-tight text-white md:text-8xl lg:text-9xl">
+                GUIDANCE
+            </h1>
+            <p class="mt-6 max-w-2xl text-sm font-light leading-relaxed tracking-wide text-[#777] md:mt-8 md:text-base">
+                The teachers and mentors who guide PRAVAAH’s work in media and communication.
+            </p>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl space-y-20 px-6 py-16 md:space-y-28 md:px-12 md:py-28 lg:px-20 lg:py-36">
+        {% for guide in guides %}
+        <article class="group grid grid-cols-1 items-start gap-8 md:grid-cols-12 md:gap-16">
+            <div class="relative aspect-[4/5] overflow-hidden border border-[#171717] bg-[#090909] md:col-span-5">
+                {% if guide.photo %}
+                <img src="{{ guide.photo.url }}" alt="Portrait of {{ guide.name }}" class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" loading="lazy">
+                {% elif guide.portrait %}
+                <img src="{% static guide.portrait %}" alt="Portrait of {{ guide.name }}" class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" loading="lazy">
+                {% else %}
+                <div class="flex h-full w-full items-center justify-center" aria-label="Portrait to be added">
+                    <span class="font-serif text-8xl font-light text-[#242424] md:text-9xl">{{ guide.name|slice:":1"|upper }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="flex flex-col justify-center space-y-5 pt-2 md:col-span-7 md:min-h-[20rem] md:pt-4">
+                <span class="text-[10px] font-medium uppercase tracking-[0.25em] text-[#777]">{{ guide.position }}</span>
+                <h2 class="max-w-3xl font-serif text-4xl font-light leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">
+                    {{ guide.name }}
+                </h2>
+                {% if guide.bio %}
+                <p class="max-w-xl text-sm font-light leading-relaxed text-[#888] md:text-base">{{ guide.bio }}</p>
+                {% endif %}
+            </div>
+        </article>
+        {% empty %}
+        <p class="text-sm font-light text-[#777]">Guidance profiles will appear here soon.</p>
+        {% endfor %}
+    </main>
+</div>
+{% endblock %}
